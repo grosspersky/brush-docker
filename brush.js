@@ -2,10 +2,10 @@ var BrushBase = require('brush-base');
 var regexLib = require('syntaxhighlighter-regex').commonRegExp;
 
 function Brush() {
-  var keywords    = 'ADD ARG CMD COPY ENTRYPOINT ENV EXPOSE FROM LABEL ' +
+  var keywords = 'ADD ARG CMD COPY ENTRYPOINT ENV EXPOSE FROM LABEL ' +
     'MAINTAINER ONBUILD RUN USER VOLUME WORKDIR';
 
-  var bashcmds    = 'add-apt-repository adduser apk apt-get aptitude apt-key autoconf bundle ' +
+  var bashcmds = 'add-apt-repository adduser apk apt-get aptitude apt-key autoconf bundle ' +
     'cd chgrp chmod chown clear complete composer cp curl du echo egrep ' +
     'expr fgrep find gem gnufind gnugrep gpg grep groupadd head less ln ' +
     'ls make mkdir mv node npm pacman pip pip3 php python rails rm rmdir rpm ruby ' +
@@ -26,17 +26,20 @@ function Brush() {
       regex: regexLib.singleLinePerlComments,
       css: 'comments'
     },
-    { regex: SyntaxHighlighter.regexLib.url, css: 'color1' },
+    {
+      regex: regexLib.url,
+      css: 'color1'
+    },
     {
       regex: new RegExp(this.getKeywords(keywords), 'gm'),
       css: 'keyword'
     },
-    { regex: new RegExp(this.getKeywords(bashcmds), 'gmi'), css: 'functions' }
-    ];
+    {regex: new RegExp(this.getKeywords(bashcmds), 'gmi'), css: 'functions'}
+  ];
 
   this.forHtmlScript(regexLib.scriptScriptTags);
 }
 
 Brush.prototype = new BrushBase();
-Brush.aliases = ['js', 'jscript', 'javascript', 'json'];
+Brush.aliases = ['dockerfile', 'docker'];
 module.exports = Brush;
